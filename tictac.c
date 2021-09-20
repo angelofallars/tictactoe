@@ -22,6 +22,7 @@ int main(int argc, char* argv[]) {
 
     while (winner == -1) {
         clear();
+        winner = check_winnner(board);
 
         printf("┌───┬───┬───┐\n");
         printf("│ %c │ %c │ %c │\n", board[0][0], board[0][1], board[0][2]);
@@ -30,6 +31,10 @@ int main(int argc, char* argv[]) {
         printf("├───┼───┼───┤\n");
         printf("│ %c │ %c │ %c │\n", board[2][0], board[2][1], board[2][2]);
         printf("└───┴───┴───┘\n");
+
+        if (winner != -1) {
+            break;
+        }
 
         // turn 0 is player 1, turn 1 is player 2
         if (turn == 0) {
@@ -64,8 +69,6 @@ int main(int argc, char* argv[]) {
                 continue;
             }
         }
-
-        winner = check_winnner(board);
     }
 
     if (winner == 0) {
