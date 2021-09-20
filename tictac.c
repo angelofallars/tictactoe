@@ -2,9 +2,10 @@
 
 #define clear() printf("\033[H\033[J")
 
+int check_winnner(char board[3][3]);
+
 /* A tic tac toe game made in C. */
-int main(int argc, char* argv[])
-{
+int main(int argc, char* argv[]) {
     char board[3][3];
     char player_char;
     int user_input;
@@ -18,6 +19,7 @@ int main(int argc, char* argv[])
     }
 
     while (1) {
+        clear();
 
         printf("┌───┬───┬───┐\n");
         printf("│ %c │ %c │ %c │\n", board[0][0], board[0][1], board[0][2]);
@@ -37,16 +39,35 @@ int main(int argc, char* argv[])
             turn = 0;
         }
 
-        printf("(x turn) Place your piece from 1-9!\n$ ");
+        printf("(%c turn) Place your piece from 1-9!\n", player_char);
 
-        do {
-            scanf("%i", &user_input);
+        while (1) {
+
+            // Get the position of the new piece
+            do {
+                printf("$ ");
+                scanf("%i", &user_input);
+            }
+            while (user_input < 1 || user_input > 9);
+
+            // Check if the position is occupied
+            if (board[user_input / 3][user_input % 3 - 1] == ' ') {
+                // Place the board from 1-9, left-to-right then top-to-bottom
+                board[user_input / 3][user_input % 3 - 1] = player_char;
+                break;
+            }
+
+            else {
+                printf("Position already occupied.\n");
+                continue;
+            }
         }
-        while (user_input < 1 || user_input > 9);
-
-        // Place the board from 1-9, left-to-right then top-to-bottom
-        board[user_input / 3][user_input % 3 - 1] = player_char;
     }
 
+    return 0;
+}
+
+// Check the winner of the game
+int check_winnner(char board[3][3]) {
     return 0;
 }
