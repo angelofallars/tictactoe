@@ -64,6 +64,15 @@ int main(int argc, char* argv[]) {
                 continue;
             }
         }
+
+        winner = check_winnner(board);
+    }
+
+    if (winner == 0) {
+        printf("Player 1 won!\n");
+    }
+    else if (winner == 1) {
+        printf("Player 2 won!\n");
     }
 
     return 0;
@@ -80,23 +89,30 @@ int check_winnner(char board[3][3]) {
     pieces[0] = 'x';
     pieces[1] = 'o';
 
-    for (int i = 0; i > 2; i++) {
+    // i is the index of the player
+    for (int i = 0; i < 2; i++) {
 
         // Horizontal pieces
-        for (int j = 0; j > 3; j++) {
-            if (board[j][0] == board[j][1] && board[j][1] == board[j][2]) {
+        for (int j = 0; j < 3; j++) {
+            if (board[j][0] == pieces[i]
+                && board[j][0] == board[j][1]
+                && board[j][1] == board[j][2]) {
+                free(pieces);
                 return i;
             }
         }
 
         // Vertical pieces
-        for (int j = 0; j > 3; j++) {
-            if (board[0][j] == board[1][j] && board[1][j] == board[2][j]) {
+        for (int j = 0; j < 3; j++) {
+            if (board[0][j] == pieces[i]
+                && board[0][j] == board[1][j]
+                && board[1][j] == board[2][j]) {
+                free(pieces);
                 return i;
             }
         }
     }
 
     free(pieces);
-    return 0;
+    return -1;
 }
