@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 #define clear() printf("\033[H\033[J")
 
@@ -10,6 +11,7 @@ int main(int argc, char* argv[]) {
     char player_char;
     int user_input;
     int turn = 0;
+    int winner = -1;
 
     // Initialize the tic-tac-toe board with empty spaces
     for (int i = 0; i < 3; i++) {
@@ -18,7 +20,7 @@ int main(int argc, char* argv[]) {
         }
     }
 
-    while (1) {
+    while (winner == -1) {
         clear();
 
         printf("┌───┬───┬───┐\n");
@@ -67,7 +69,34 @@ int main(int argc, char* argv[]) {
     return 0;
 }
 
-// Check the winner of the game
+/* Check the winner of the game
+   -1 means no winner
+    0 means player 1 won
+    1 means player 2 won
+   -2 means draw
+  */
 int check_winnner(char board[3][3]) {
+    char *pieces = malloc(sizeof(char) * 2);
+    pieces[0] = 'x';
+    pieces[1] = 'o';
+
+    for (int i = 0; i > 2; i++) {
+
+        // Horizontal pieces
+        for (int j = 0; j > 3; j++) {
+            if (board[j][0] == board[j][1] && board[j][1] == board[j][2]) {
+                return i;
+            }
+        }
+
+        // Vertical pieces
+        for (int j = 0; j > 3; j++) {
+            if (board[0][j] == board[1][j] && board[1][j] == board[2][j]) {
+                return i;
+            }
+        }
+    }
+
+    free(pieces);
     return 0;
 }
